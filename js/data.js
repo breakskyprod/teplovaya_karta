@@ -31,7 +31,7 @@ const DISTRICT_THEME_DATA = {
     'Alnashsky': {
         name: 'Алнашский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -39,7 +39,7 @@ const DISTRICT_THEME_DATA = {
     'Balezinsky': {
         name: 'Балезинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [1, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -47,7 +47,7 @@ const DISTRICT_THEME_DATA = {
     'Vavozhsky': {
         name: 'Вавожский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [2, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -55,7 +55,7 @@ const DISTRICT_THEME_DATA = {
     'Votkinsky': {
         name: 'Воткинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [1, 0, 2, 6, 0, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 0, 4, 3, 4, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -63,7 +63,7 @@ const DISTRICT_THEME_DATA = {
     'Glazovsky': {
         name: 'Глазовский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [2, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 4, 2, 4, 5, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -79,7 +79,7 @@ const DISTRICT_THEME_DATA = {
     'Debessky': {
         name: 'Дебёсский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -87,7 +87,7 @@ const DISTRICT_THEME_DATA = {
     'Zavyalovsky': {
         name: 'Завьяловский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 1, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [2, 1, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -95,7 +95,7 @@ const DISTRICT_THEME_DATA = {
     'Igrinsky': {
         name: 'Игринский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -111,7 +111,7 @@ const DISTRICT_THEME_DATA = {
     'Kambarsky': {
         name: 'Камбарский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -127,7 +127,7 @@ const DISTRICT_THEME_DATA = {
     'Kezsky': {
         name: 'Кезский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -151,7 +151,7 @@ const DISTRICT_THEME_DATA = {
     'Krasnogorsky': {
         name: 'Красногорский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -167,7 +167,7 @@ const DISTRICT_THEME_DATA = {
     'Mozhginsky': {
         name: 'Можгинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -175,7 +175,7 @@ const DISTRICT_THEME_DATA = {
     'Sarapulsky': {
         name: 'Сарапульский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [2, 0, 1, 1, 2, 4, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 4, 0, 6, 3, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -183,7 +183,7 @@ const DISTRICT_THEME_DATA = {
     'Seltinsky': {
         name: 'Селтинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -191,7 +191,7 @@ const DISTRICT_THEME_DATA = {
     'Syumsinsky': {
         name: 'Сюмсинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -199,7 +199,7 @@ const DISTRICT_THEME_DATA = {
     'Uvinsky': {
         name: 'Увинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -207,7 +207,7 @@ const DISTRICT_THEME_DATA = {
     'Sharkansky': {
         name: 'Шарканский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
@@ -223,7 +223,7 @@ const DISTRICT_THEME_DATA = {
     'YakshurBodyinsky': {
         name: 'Якшур-Бодьинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [4, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -241,7 +241,7 @@ const DISTRICT_THEME_DATA = {
     'Leninsky': {
         name: 'Ижевск · Ленинский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [1, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [5, 2, 4, 0, 3, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -249,7 +249,7 @@ const DISTRICT_THEME_DATA = {
     'Ustinovsky': {
         name: 'Ижевск · Устиновский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [2, 2, 8, 6, 2, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [6, 5, 8, 5, 6, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -257,7 +257,7 @@ const DISTRICT_THEME_DATA = {
     'Pervomaisky': {
         name: 'Ижевск · Первомайский район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [4, 4, 3, 2, 2, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -265,7 +265,7 @@ const DISTRICT_THEME_DATA = {
     'Industrialny': {
         name: 'Ижевск · Индустриальный район',
         terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        homelessness: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        homelessness: [1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [4, 8, 8, 13, 7, 0, 0, 0, 0, 0, 0, 0],
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
