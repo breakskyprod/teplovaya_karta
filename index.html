@@ -24,11 +24,12 @@
         <div class="heatmap-subtitle">деструктивного поведения молодежи в Удмуртской Республике</div>
         <div class="heatmap-description">
             Интерактивная карта визуализирует распространённость форм деструктивного поведения среди молодежи по муниципальным образованиям Удмуртии. 
-            Нажимайте на столбцы в блоке «Показатели», чтобы отфильтровать карту и график по нужным тематикам. Нажмите на район, чтобы увидеть детализацию.
+            Нажимайте на столбцы в блоке «Показатели», чтобы выбрать нужные тематики. График и карта будут автоматически перестраиваться. 
+            Нажмите на район карты, чтобы увидеть детализацию по выбранным темам.
         </div>
     </div>
 
-    <!-- Блок с гистограммой (Теперь работает как фильтр) -->
+    <!-- Блок с гистограммой (Фильтр) -->
     <section id="indicators-section" class="section">
         <div class="section-title">Показатели (кликните для выбора тем)</div>
         <div class="month-carousel-wrapper">
@@ -53,7 +54,6 @@
             </div>
         </div>
         <div class="chart" id="chart">
-            <!-- Добавлены data-theme атрибуты для идентификации -->
             <div class="bar-wrapper" data-theme="0"><div class="bar-value" id="value1">0</div><div class="bar bar-1 active" id="bar1" style="height:0"></div><div class="bar-label">Терроризм/экстремизм</div></div>
             <div class="bar-wrapper" data-theme="1"><div class="bar-value" id="value2">0</div><div class="bar bar-2 active" id="bar2" style="height:0"></div><div class="bar-label">Беспризорность/правонарушения</div></div>
             <div class="bar-wrapper" data-theme="2"><div class="bar-value" id="value3">0</div><div class="bar bar-3 active" id="bar3" style="height:0"></div><div class="bar-label">Суицидальное поведение</div></div>
@@ -62,11 +62,11 @@
         </div>
     </section>
 
-    <!-- БЛОК: ЛИНЕЙНЫЙ ГРАФИК (Общий по темам) -->
+    <!-- БЛОК: ЛИНЕЙНЫЙ ГРАФИК -->
     <section id="linechart-section" class="section line-chart-section">
         <div class="section-title">Динамика по выбранным темам</div>
         <div class="chart-legend" id="dynamicLegend">
-            <!-- Легенда будет собираться скриптом -->
+            <!-- Легенда собирается скриптом -->
         </div>
         <div class="line-chart-container">
             <canvas id="lineChartCanvas" width="900" height="400"></canvas>
@@ -99,8 +99,8 @@
         <div class="heatmap-container" id="heatmapContainer">
             <div class="map-wrapper" id="mapWrapper"></div>
             <div class="legend">
-                <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Низкий (0-3)</div>
-                <div class="legend-item"><div class="legend-color" style="background: #f1c40f;"></div> Средний (4-6)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Низкий (0–3)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #f1c40f;"></div> Средний (4–6)</div>
                 <div class="legend-item"><div class="legend-color" style="background: #e74c3c;"></div> Высокий (7 и более)</div>
             </div>
         </div>
