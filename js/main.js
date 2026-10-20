@@ -1,26 +1,4 @@
 // ===================================================================
-// SVG ИКОНКИ
-// ===================================================================
-const ICONS = {
-    // Иконки для уровней (цветные кружочки)
-    level: {
-        low: `<svg viewBox="0 0 24 24" fill="#2ecc71" stroke="none"><circle cx="12" cy="12" r="10"/></svg>`,
-        medium: `<svg viewBox="0 0 24 24" fill="#f1c40f" stroke="none"><circle cx="12" cy="12" r="10"/></svg>`,
-        high: `<svg viewBox="0 0 24 24" fill="#e74c3c" stroke="none"><circle cx="12" cy="12" r="10"/></svg>`
-    },
-    // Иконки для тем
-    themes: {
-        terrorism: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
-        homelessness: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-        suicide: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`,
-        substances: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>`,
-        cyber: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>`
-    },
-    // Иконка для "Итого"
-    total: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`
-};
-
-// ===================================================================
 // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 // ===================================================================
 function getLevelByValue(value) {
@@ -108,7 +86,8 @@ function initCarousel(trackId, initialMonth, onMonthChange) {
 // ===================================================================
 // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
 // ===================================================================
-let activeThemes = [0, 1, 2, 3, 4];
+// При старте страницы не выбрано ни одной категории
+let activeThemes = []; 
 let currentChartMonth = 'jan';
 let currentHeatmapMonth = 'jan';
 let animationStarted = false;
@@ -170,15 +149,14 @@ function initBarClickHandlers() {
     document.querySelectorAll('.bar-wrapper').forEach(wrapper => {
         wrapper.addEventListener('click', () => {
             const themeIndex = parseInt(wrapper.dataset.theme);
+            const barEl = wrapper.querySelector('.bar');
             
             if (activeThemes.includes(themeIndex)) {
-                if (activeThemes.length > 1) {
-                    activeThemes = activeThemes.filter(i => i !== themeIndex);
-                    wrapper.querySelector('.bar').classList.remove('active');
-                }
+                activeThemes = activeThemes.filter(i => i !== themeIndex);
+                barEl.classList.remove('active');
             } else {
                 activeThemes.push(themeIndex);
-                wrapper.querySelector('.bar').classList.add('active');
+                barEl.classList.add('active');
             }
             
             drawLineChart();
@@ -216,6 +194,17 @@ function drawLineChart() {
     const padding = { top: 40, bottom: 40, left: 46, right: 22 };
     const chartWidth = width - padding.left - padding.right;
     const chartHeight = height - padding.top - padding.bottom;
+
+    // Если ничего не выбрано, рисуем заглушку
+    if (activeThemes.length === 0) {
+        ctx.fillStyle = '#3a2c3f';
+        ctx.font = '500 16px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Выберите тематику в блоке «Показатели», чтобы увидеть динамику', width / 2, height / 2);
+        document.getElementById('dynamicLegend').innerHTML = '';
+        return;
+    }
 
     const series = activeThemes.map(themeIdx => {
         const theme = THEMES[themeIdx];
@@ -283,6 +272,10 @@ function drawLineChart() {
 
 function updateLegend() {
     const legend = document.getElementById('dynamicLegend');
+    if (activeThemes.length === 0) {
+        legend.innerHTML = '';
+        return;
+    }
     legend.innerHTML = activeThemes.map(idx => {
         const t = THEMES[idx];
         return `<div class="chart-legend-item"><span class="chart-legend-dot" style="background:${t.color}"></span>${t.name}</div>`;
@@ -295,8 +288,12 @@ function updateLegend() {
 function getDistrictValueForSelectedThemes(districtData, monthKey) {
     const monthIdx = monthKeys.indexOf(monthKey);
     if (monthIdx === -1) return 0;
+    
+    // Если ничего не выбрано, берем сумму ВСЕХ тем
+    let themesToSum = activeThemes.length > 0 ? activeThemes : [0, 1, 2, 3, 4];
     let sum = 0;
-    activeThemes.forEach(themeIdx => {
+    
+    themesToSum.forEach(themeIdx => {
         const key = THEMES[themeIdx].key;
         if (districtData[key] && districtData[key][monthIdx]) {
             sum += districtData[key][monthIdx];
@@ -333,30 +330,34 @@ function showTooltip(districtId, event, isIzhevskMap = false) {
     let htmlRows = '';
     let total = 0;
 
-    activeThemes.forEach(themeIdx => {
+    // Если ничего не выбрано, показываем все темы
+    let themesToShow = activeThemes.length > 0 ? activeThemes : [0, 1, 2, 3, 4];
+
+    themesToShow.forEach(themeIdx => {
         const t = THEMES[themeIdx];
         const val = data[t.key] ? (data[t.key][monthIdx] || 0) : 0;
         total += val;
-        // Используем SVG иконку для темы
-        htmlRows += `<div class="tooltip-row" style="color:${t.color}"><span class="tooltip-label">${ICONS.themes[t.key]} ${t.short}:</span><span class="tooltip-value">${val}</span></div>`;
+        htmlRows += `<div class="tooltip-row" style="color:${t.color}"><span>● ${t.short}:</span><span>${val}</span></div>`;
     });
 
     const level = getLevelByValue(total);
+    const levelColor = getColorByLevel(level);
+    const levelName = getLevelName(level);
     
     const tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
     tooltip.innerHTML = `
         <div class="tooltip-title">${data.name}</div>
         <div class="tooltip-row">
-            <span class="tooltip-label">${ICONS.level[level]} Уровень:</span>
-            <span class="tooltip-value" style="color:${getColorByLevel(level)}">${getLevelName(level)}</span>
+            <span>Уровень:</span>
+            <span style="color:${levelColor}; font-weight:700;">${levelName}</span>
         </div>
         <div class="tooltip-divider"></div>
         ${htmlRows}
         <div class="tooltip-divider"></div>
-        <div class="tooltip-row" style="color:#fff;">
-            <span class="tooltip-label">${ICONS.total} Итого:</span>
-            <span class="tooltip-value">${total}</span>
+        <div class="tooltip-row" style="color:#fff; font-weight:bold;">
+            <span>Итого:</span>
+            <span>${total}</span>
         </div>
     `;
 
