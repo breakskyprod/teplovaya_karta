@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Тепловая карта | Деструктивное поведение подростков в Удмуртии</title>
+    <title>Тепловая карта | Деструктивное поведение молодежи в Удмуртии</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -14,24 +14,23 @@
 <div class="fixed-menu">
     <a class="menu-link" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Главная</a>
     <a class="menu-link" onclick="document.getElementById('indicators-section').scrollIntoView({ behavior: 'smooth' });">Показатели</a>
-    <a class="menu-link" onclick="document.getElementById('linechart-section').scrollIntoView({ behavior: 'smooth' });">График по районам</a>
+    <a class="menu-link" onclick="document.getElementById('linechart-section').scrollIntoView({ behavior: 'smooth' });">График динамики</a>
     <a class="menu-link" onclick="document.getElementById('heatmap-section').scrollIntoView({ behavior: 'smooth' });">Тепловая карта</a>
 </div>
 
 <div class="main-container">
     <div class="hero-section">
         <div class="heatmap-main-title">Тепловая карта</div>
-        <div class="heatmap-subtitle">деструктивного поведения подростков в Удмуртской Республике</div>
+        <div class="heatmap-subtitle">деструктивного поведения молодежи в Удмуртской Республике</div>
         <div class="heatmap-description">
-            Интерактивная карта позволяет визуализировать распространённость различных форм деструктивного поведения среди несовершеннолетних
-            по муниципальным образованиям Удмуртии. Выбор месяца показывает актуальные данные по каждому району, помогая выявлять
-            проблемные зоны и своевременно принимать профилактические меры. Нажмите на любой район карты, чтобы увидеть детальную информацию.
+            Интерактивная карта визуализирует распространённость форм деструктивного поведения среди молодежи по муниципальным образованиям Удмуртии. 
+            Нажимайте на столбцы в блоке «Показатели», чтобы отфильтровать карту и график по нужным тематикам. Нажмите на район, чтобы увидеть детализацию.
         </div>
     </div>
 
-    <!-- Блок с гистограммой (Динамика показателей) -->
+    <!-- Блок с гистограммой (Теперь работает как фильтр) -->
     <section id="indicators-section" class="section">
-        <div class="section-title">Динамика показателей</div>
+        <div class="section-title">Показатели (кликните для выбора тем)</div>
         <div class="month-carousel-wrapper">
             <div class="month-carousel">
                 <div class="month-carousel-mask">
@@ -54,30 +53,20 @@
             </div>
         </div>
         <div class="chart" id="chart">
-            <div class="bar-wrapper"><div class="bar-value" id="value1">0</div><div class="bar bar-1" id="bar1" style="height:0"></div><div class="bar-label">Терроризм/экстремизм</div></div>
-            <div class="bar-wrapper"><div class="bar-value" id="value2">0</div><div class="bar bar-2" id="bar2" style="height:0"></div><div class="bar-label">Беспризорность/правонарушения</div></div>
-            <div class="bar-wrapper"><div class="bar-value" id="value3">0</div><div class="bar bar-3" id="bar3" style="height:0"></div><div class="bar-label">Суицидальное поведение</div></div>
-            <div class="bar-wrapper"><div class="bar-value" id="value4">0</div><div class="bar bar-4" id="bar4" style="height:0"></div><div class="bar-label">Психоактивные вещества</div></div>
-            <div class="bar-wrapper"><div class="bar-value" id="value5">0</div><div class="bar bar-5" id="bar5" style="height:0"></div><div class="bar-label">Сфера кибербезопасности</div></div>
+            <!-- Добавлены data-theme атрибуты для идентификации -->
+            <div class="bar-wrapper" data-theme="0"><div class="bar-value" id="value1">0</div><div class="bar bar-1 active" id="bar1" style="height:0"></div><div class="bar-label">Терроризм/экстремизм</div></div>
+            <div class="bar-wrapper" data-theme="1"><div class="bar-value" id="value2">0</div><div class="bar bar-2 active" id="bar2" style="height:0"></div><div class="bar-label">Беспризорность/правонарушения</div></div>
+            <div class="bar-wrapper" data-theme="2"><div class="bar-value" id="value3">0</div><div class="bar bar-3 active" id="bar3" style="height:0"></div><div class="bar-label">Суицидальное поведение</div></div>
+            <div class="bar-wrapper" data-theme="3"><div class="bar-value" id="value4">0</div><div class="bar bar-4 active" id="bar4" style="height:0"></div><div class="bar-label">Психоактивные вещества</div></div>
+            <div class="bar-wrapper" data-theme="4"><div class="bar-value" id="value5">0</div><div class="bar bar-5 active" id="bar5" style="height:0"></div><div class="bar-label">Сфера кибербезопасности</div></div>
         </div>
     </section>
 
-    <!-- БЛОК: ЛИНЕЙНЫЙ ГРАФИК ПО РАЙОНАМ -->
+    <!-- БЛОК: ЛИНЕЙНЫЙ ГРАФИК (Общий по темам) -->
     <section id="linechart-section" class="section line-chart-section">
-        <div class="section-title">Динамика по темам — выберите район</div>
-        <div class="month-carousel-wrapper">
-            <div class="month-carousel" style="max-width: 95%;">
-                <div class="month-carousel-mask">
-                    <div class="month-track" id="districtTrack"></div>
-                </div>
-            </div>
-        </div>
-        <div class="chart-legend">
-            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#8e44ad"></span>Терроризм/экстремизм</div>
-            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#a05252"></span>Беспризорность/правонарушения</div>
-            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#c0392b"></span>Суицидальное поведение</div>
-            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#e67e22"></span>Психоактивные вещества</div>
-            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#b7950b"></span>Сфера кибербезопасности</div>
+        <div class="section-title">Динамика по выбранным темам</div>
+        <div class="chart-legend" id="dynamicLegend">
+            <!-- Легенда будет собираться скриптом -->
         </div>
         <div class="line-chart-container">
             <canvas id="lineChartCanvas" width="900" height="400"></canvas>
@@ -110,10 +99,9 @@
         <div class="heatmap-container" id="heatmapContainer">
             <div class="map-wrapper" id="mapWrapper"></div>
             <div class="legend">
-                <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Нулевой (0)</div>
-                <div class="legend-item"><div class="legend-color" style="background: #f1c40f;"></div> Низкий (1–5)</div>
-                <div class="legend-item"><div class="legend-color" style="background: #e67e22;"></div> Средний (6–10)</div>
-                <div class="legend-item"><div class="legend-color" style="background: #e74c3c;"></div> Высокий (11 и более)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Низкий (0-3)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #f1c40f;"></div> Средний (4-6)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #e74c3c;"></div> Высокий (7 и более)</div>
             </div>
         </div>
     </section>
@@ -126,10 +114,7 @@
 
 <button class="back-button" id="backButton">← Вернуться к карте Удмуртии</button>
 
-<!-- Подключение скриптов (строго в таком порядке) -->
-<script src="js/data_histogram.js"></script>
-<script src="js/data_map.js"></script>
-<script src="js/data_linechart.js"></script>
+<script src="js/data.js"></script>
 <script src="js/maps.js"></script>
 <script src="js/main.js"></script>
 </body>
