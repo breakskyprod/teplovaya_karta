@@ -1,29 +1,25 @@
 const express = require('express');
 const path = require('path');
-const auth = require('http-auth');
+const basicAuth = require('express-basic-auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Настройки для Basic Auth. 
-// В Render мы зададим эти переменные окружения для безопасности.
-const basic = auth.basic({
-    realm: 'Protected Area'
-}, (username, password, callback) => {
-    // Проверяем логин и пароль из переменных окружения
-    const validUser = process.env.AUTH_USER || 'udm';
-    const validPass = process.env.AUTH_PASS || 'udm2026';
-    callback(username === validUser && password === validPass);
-});
+// Настройки для Basic Auth
+// Логин и пароль берутся из переменных окружения на Render
+const users = {};
+users[process.env.AUTH_USER || 'admin'] = process.env.AUTH_PASS || 'password';
 
-// ВАЖНО: Middleware аутентификации должен идти ПЕРЕД express.static,
-// чтобы защитить все статические файлы (HTML, JS, CSS).
-app.use(auth.connect(basic));
+app.use(basicAuth({
+    users,
+    challenge: true,      // Показывать окно входа в браузере
+    realm: 'Protected Area'
+}));
 
 // Раздаем статические файлы из текущей директории
 app.use(express.static(__dirname));
 
-// Если пользователь зашел на главную, отдаем index.html (или ваш файл)
+// Отдаем главную страницу
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
