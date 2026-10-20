@@ -279,16 +279,3 @@ const DISTRICT_THEME_DATA = {
         cyber:        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 };
-
-// Функция для получения общего числа по всем районам за конкретный месяц и тему
-function getTotalForTheme(themeKey, monthKey) {
-    const monthIndex = monthKeys.indexOf(monthKey);
-    if (monthIndex === -1) return 0; 
-    let sum = 0;
-    for (let d in DISTRICT_THEME_DATA) {
-        if (DISTRICT_THEME_DATA[d][themeKey] && DISTRICT_THEME_DATA[d][themeKey][monthIndex]) {
-            sum += DISTRICT_THEME_DATA[d][themeKey][monthIndex];
-        }
-    }
-    return sum;
-}
