@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 // Настройки для Basic Auth
 // Логин и пароль берутся из переменных окружения на Render
 const users = {};
-users[process.env.AUTH_USER || 'admin'] = process.env.AUTH_PASS || 'password';
+users[process.env.AUTH_USER || 'udm'] = process.env.AUTH_PASS || 'udm2026';
 
 app.use(basicAuth({
     users,
