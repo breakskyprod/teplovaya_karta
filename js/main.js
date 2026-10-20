@@ -30,6 +30,31 @@ function getMonthName(monthKey) {
     return names[monthKey] || monthKey;
 }
 
+// Функция для получения общего числа по региону (исключая Ижевск)
+function getTotalForTheme(themeKey, monthKey) {
+    let sum = 0;
+    let monthsToSum = [];
+
+    if (monthKey === 'first') {
+        monthsToSum = [0, 1, 2, 3, 4, 5]; // Суммируем Январь - Июнь
+    } else {
+        const idx = monthKeys.indexOf(monthKey);
+        if (idx !== -1) monthsToSum = [idx];
+    }
+
+    for (let d in DISTRICT_THEME_DATA) {
+        if (d === 'Izhevsk') continue; // ИСКЛЮЧАЕМ ГОРОД, чтобы не было дубляжа
+        if (DISTRICT_THEME_DATA[d][themeKey]) {
+            monthsToSum.forEach(idx => {
+                if (DISTRICT_THEME_DATA[d][themeKey][idx]) {
+                    sum += DISTRICT_THEME_DATA[d][themeKey][idx];
+                }
+            });
+        }
+    }
+    return sum;
+}
+
 // ===================================================================
 // КАРУСЕЛЬ МЕСЯЦЕВ
 // ===================================================================
@@ -86,8 +111,7 @@ function initCarousel(trackId, initialMonth, onMonthChange) {
 // ===================================================================
 // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
 // ===================================================================
-// При старте страницы не выбрано ни одной категории
-let activeThemes = []; 
+let activeThemes = []; // При старте ничего не выбрано
 let currentChartMonth = 'jan';
 let currentHeatmapMonth = 'jan';
 let animationStarted = false;
@@ -195,7 +219,6 @@ function drawLineChart() {
     const chartWidth = width - padding.left - padding.right;
     const chartHeight = height - padding.top - padding.bottom;
 
-    // Если ничего не выбрано, рисуем заглушку
     if (activeThemes.length === 0) {
         ctx.fillStyle = '#3a2c3f';
         ctx.font = '500 16px Montserrat, sans-serif';
@@ -286,17 +309,23 @@ function updateLegend() {
 // КАРТА И ТУЛТИПЫ
 // ===================================================================
 function getDistrictValueForSelectedThemes(districtData, monthKey) {
-    const monthIdx = monthKeys.indexOf(monthKey);
-    if (monthIdx === -1) return 0;
-    
-    // Если ничего не выбрано, берем сумму ВСЕХ тем
+    let monthsToSum = [];
+    if (monthKey === 'first') {
+        monthsToSum = [0, 1, 2, 3, 4, 5]; // Суммируем первые 6 месяцев для карты
+    } else {
+        const idx = monthKeys.indexOf(monthKey);
+        if (idx !== -1) monthsToSum = [idx];
+    }
+
     let themesToSum = activeThemes.length > 0 ? activeThemes : [0, 1, 2, 3, 4];
     let sum = 0;
     
     themesToSum.forEach(themeIdx => {
         const key = THEMES[themeIdx].key;
-        if (districtData[key] && districtData[key][monthIdx]) {
-            sum += districtData[key][monthIdx];
+        if (districtData[key]) {
+            monthsToSum.forEach(idx => {
+                if (districtData[key][idx]) sum += districtData[key][idx];
+            });
         }
     });
     return sum;
@@ -326,16 +355,26 @@ function showTooltip(districtId, event, isIzhevskMap = false) {
 
     if (currentTooltip) currentTooltip.remove();
 
-    const monthIdx = monthKeys.indexOf(currentHeatmapMonth);
+    let monthsToSum = [];
+    if (currentHeatmapMonth === 'first') {
+        monthsToSum = [0, 1, 2, 3, 4, 5];
+    } else {
+        const idx = monthKeys.indexOf(currentHeatmapMonth);
+        if (idx !== -1) monthsToSum = [idx];
+    }
+
     let htmlRows = '';
     let total = 0;
-
-    // Если ничего не выбрано, показываем все темы
     let themesToShow = activeThemes.length > 0 ? activeThemes : [0, 1, 2, 3, 4];
 
     themesToShow.forEach(themeIdx => {
         const t = THEMES[themeIdx];
-        const val = data[t.key] ? (data[t.key][monthIdx] || 0) : 0;
+        let val = 0;
+        if (data[t.key]) {
+            monthsToSum.forEach(idx => {
+                if (data[t.key][idx]) val += data[t.key][idx];
+            });
+        }
         total += val;
         htmlRows += `<div class="tooltip-row" style="color:${t.color}"><span>● ${t.short}:</span><span>${val}</span></div>`;
     });
