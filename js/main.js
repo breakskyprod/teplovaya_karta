@@ -115,7 +115,7 @@ function initCarousel(trackId, initialMonth, onMonthChange) {
 // ===================================================================
 // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
 // ===================================================================
-let activeThemes = []; 
+let activeThemes = []; // При старте ничего не выбрано
 let currentChartMonth = 'jan';
 let currentHeatmapMonth = 'jan';
 let animationStarted = false;
@@ -337,7 +337,6 @@ function getDistrictValueForSelectedThemes(districtData, monthKey) {
 
 function recolorDistricts(month) {
     for (const [dId, data] of Object.entries(DISTRICT_THEME_DATA)) {
-        // Исключаем районы Ижевска для основной карты
         if (['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'].includes(dId)) continue;
         const val = getDistrictValueForSelectedThemes(data, month);
         const path = document.querySelector(`#udmurtiaMap g[id="${dId}"] path`);
@@ -417,7 +416,7 @@ function showTooltip(districtId, event, isIzhevskMap = false) {
     if (rect.bottom > window.innerHeight) tooltip.style.top = (event.clientY - rect.height - 10) + 'px';
 
     currentTooltip = tooltip;
-    setTimeout(() => { if (currentTooltip) { currentTooltip.remove(); currentTooltip = null; } }, 6000);
+    // Таймер удален, тултип висит до клика в другое место
 }
 
 function initUdmurtiaMapHandlers() {
