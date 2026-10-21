@@ -30,7 +30,7 @@ function getMonthName(monthKey) {
     return names[monthKey] || monthKey;
 }
 
-// Функция для получения общего числа по региону (исключая Ижевск)
+// Суммирование по региону (исключая районы Ижевска, но включая сам город)
 function getTotalForTheme(themeKey, monthKey) {
     let sum = 0;
     let monthsToSum = [];
@@ -42,8 +42,12 @@ function getTotalForTheme(themeKey, monthKey) {
         if (idx !== -1) monthsToSum = [idx];
     }
 
+    // Список районов Ижевска, которые не нужно суммировать (данные по ним пустые)
+    const izhevskDistricts = ['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'];
+
     for (let d in DISTRICT_THEME_DATA) {
-        if (d === 'Izhevsk') continue; // ИСКЛЮЧАЕМ ГОРОД, чтобы не было дубляжа
+        if (izhevskDistricts.includes(d)) continue; // Пропускаем пустые районы Ижевска
+        
         if (DISTRICT_THEME_DATA[d][themeKey]) {
             monthsToSum.forEach(idx => {
                 if (DISTRICT_THEME_DATA[d][themeKey][idx]) {
@@ -111,7 +115,7 @@ function initCarousel(trackId, initialMonth, onMonthChange) {
 // ===================================================================
 // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
 // ===================================================================
-let activeThemes = []; // При старте ничего не выбрано
+let activeThemes = []; 
 let currentChartMonth = 'jan';
 let currentHeatmapMonth = 'jan';
 let animationStarted = false;
@@ -311,7 +315,7 @@ function updateLegend() {
 function getDistrictValueForSelectedThemes(districtData, monthKey) {
     let monthsToSum = [];
     if (monthKey === 'first') {
-        monthsToSum = [0, 1, 2, 3, 4, 5]; // Суммируем первые 6 месяцев для карты
+        monthsToSum = [0, 1, 2, 3, 4, 5];
     } else {
         const idx = monthKeys.indexOf(monthKey);
         if (idx !== -1) monthsToSum = [idx];
@@ -333,6 +337,7 @@ function getDistrictValueForSelectedThemes(districtData, monthKey) {
 
 function recolorDistricts(month) {
     for (const [dId, data] of Object.entries(DISTRICT_THEME_DATA)) {
+        // Исключаем районы Ижевска для основной карты
         if (['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'].includes(dId)) continue;
         const val = getDistrictValueForSelectedThemes(data, month);
         const path = document.querySelector(`#udmurtiaMap g[id="${dId}"] path`);
