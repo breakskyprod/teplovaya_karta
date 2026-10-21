@@ -42,7 +42,6 @@ function getTotalForTheme(themeKey, monthKey) {
         if (idx !== -1) monthsToSum = [idx];
     }
 
-    // Список районов Ижевска, которые не нужно суммировать (данные по ним пустые)
     const izhevskDistricts = ['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'];
 
     for (let d in DISTRICT_THEME_DATA) {
@@ -115,7 +114,7 @@ function initCarousel(trackId, initialMonth, onMonthChange) {
 // ===================================================================
 // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
 // ===================================================================
-let activeThemes = []; // При старте ничего не выбрано
+let activeThemes = []; 
 let currentChartMonth = 'jan';
 let currentHeatmapMonth = 'jan';
 let animationStarted = false;
@@ -223,12 +222,42 @@ function drawLineChart() {
     const chartWidth = width - padding.left - padding.right;
     const chartHeight = height - padding.top - padding.bottom;
 
+    // Если ничего не выбрано — рисуем заглушку с авто-переносом
     if (activeThemes.length === 0) {
         ctx.fillStyle = '#3a2c3f';
-        ctx.font = '500 16px Montserrat, sans-serif';
+        // Делаем шрифт чуть меньше на мобильных экранах
+        const fontSize = width < 400 ? 14 : 16;
+        ctx.font = `500 ${fontSize}px Montserrat, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('Выберите тематику в блоке «Показатели», чтобы увидеть динамику', width / 2, height / 2);
+        
+        const msg = 'Выберите тематику в блоке «Показатели», чтобы увидеть динамику';
+        const maxLineWidth = width - 40; // Оставляем отступы по 20px с каждой стороны
+        const lineHeight = fontSize * 1.5;
+        
+        // Разбиваем текст на строки
+        const words = msg.split(' ');
+        let lines = [];
+        let currentLine = words[0];
+
+        for (let i = 1; i < words.length; i++) {
+            const word = words[i];
+            const wordWidth = ctx.measureText(currentLine + " " + word).width;
+            if (wordWidth < maxLineWidth) {
+                currentLine += " " + word;
+            } else {
+                lines.push(currentLine);
+                currentLine = word;
+            }
+        }
+        lines.push(currentLine);
+
+        // Рисуем строки, центрируя их по вертикали
+        let startY = height / 2 - ((lines.length - 1) * lineHeight) / 2;
+        for (let i = 0; i < lines.length; i++) {
+            ctx.fillText(lines[i], width / 2, startY + i * lineHeight);
+        }
+        
         document.getElementById('dynamicLegend').innerHTML = '';
         return;
     }
@@ -416,7 +445,6 @@ function showTooltip(districtId, event, isIzhevskMap = false) {
     if (rect.bottom > window.innerHeight) tooltip.style.top = (event.clientY - rect.height - 10) + 'px';
 
     currentTooltip = tooltip;
-    // Таймер удален, тултип висит до клика в другое место
 }
 
 function initUdmurtiaMapHandlers() {
