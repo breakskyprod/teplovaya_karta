@@ -130,17 +130,24 @@ body { min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif; posi
     .month-carousel { max-width: 95%; }
     .month-chip { padding: 6px 16px; font-size: 0.85rem; }
     
-    /* Гистограмма - горизонтальный скролл для столбиков */
+    /* ГИСТОГРАММА - ИСПРАВЛЕННЫЙ БЛОК */
     .chart { 
         justify-content: flex-start; 
         overflow-x: auto; 
+        flex-wrap: nowrap; /* Запрещаем перенос на новую строку! */
         gap: 15px; 
-        padding-bottom: 25px; 
+        padding: 10px 10px 25px 10px; 
         -webkit-overflow-scrolling: touch; 
         scrollbar-width: none; 
     }
     .chart::-webkit-scrollbar { display: none; }
-    .bar-wrapper { min-width: 75px; flex: 0 0 auto; gap: 10px; }
+    
+    /* Жестко задаем ширину обертки, чтобы они не сжимались */
+    .bar-wrapper { 
+        min-width: 80px; 
+        flex: 0 0 auto; 
+        gap: 10px; 
+    }
     .bar { width: 60px; }
     .bar-label { font-size: 0.85rem; padding: 6px 8px; line-height: 1.2; }
     .bar-value { font-size: 1rem; padding: 2px 10px; }
