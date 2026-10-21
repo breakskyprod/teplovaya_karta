@@ -62,7 +62,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Glazovsky': {
         name: 'Глазовский район',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
         homelessness: [2, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 4, 2, 4, 5, 0, 0, 0, 0, 0, 0, 0],
@@ -86,7 +86,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Zavyalovsky': {
         name: 'Завьяловский район',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         homelessness: [0, 1, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0],
         substances:   [2, 1, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0],
@@ -94,7 +94,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Igrinsky': {
         name: 'Игринский район',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         homelessness: [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -102,7 +102,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Izhevsk': {
         name: 'Ижевск',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [3, 1, 7, 2, 0, 3, 0, 0, 0, 0, 0, 0],
         homelessness: [4, 6, 15, 13, 6, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [5, 8, 4, 7, 5, 4, 0, 1, 1, 0, 0, 0],
         substances:   [26, 22, 29, 26, 26, 0, 0, 0, 0, 0, 0, 0],
@@ -174,7 +174,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Sarapulsky': {
         name: 'Сарапульский район',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         homelessness: [2, 0, 1, 1, 2, 4, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 4, 0, 6, 3, 0, 0, 0, 0, 0, 0, 0],
@@ -190,7 +190,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Syumsinsky': {
         name: 'Сюмсинский район',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
         homelessness: [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -198,7 +198,7 @@ const DISTRICT_THEME_DATA = {
     },
     'Uvinsky': {
         name: 'Увинский район',
-        terrorism:    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        terrorism:    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
         homelessness: [2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
         suicide:      [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         substances:   [1, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
