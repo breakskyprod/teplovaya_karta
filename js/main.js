@@ -30,7 +30,38 @@ function getMonthName(monthKey) {
     return names[monthKey] || monthKey;
 }
 
-// Суммирование по региону (исключая районы Ижевска, но включая сам город)
+// Вспомогательная функция: умный подсчет по Ижевску
+// Если в ключе 'Izhevsk' есть данные, берет их. Если нет — суммирует 5 районов города.
+function getIzhevskTotal(themeKey, monthsToSum) {
+    let districtSum = 0;
+    const izhevskDistricts = ['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'];
+    
+    // Считаем сумму по районам
+    izhevskDistricts.forEach(d => {
+        if (DISTRICT_THEME_DATA[d] && DISTRICT_THEME_DATA[d][themeKey]) {
+            monthsToSum.forEach(idx => {
+                if (DISTRICT_THEME_DATA[d][themeKey][idx]) {
+                    districtSum += DISTRICT_THEME_DATA[d][themeKey][idx];
+                }
+            });
+        }
+    });
+
+    let directSum = 0;
+    // Считаем данные из общего ключа 'Izhevsk'
+    if (DISTRICT_THEME_DATA['Izhevsk'] && DISTRICT_THEME_DATA['Izhevsk'][themeKey]) {
+        monthsToSum.forEach(idx => {
+            if (DISTRICT_THEME_DATA['Izhevsk'][themeKey][idx]) {
+                directSum += DISTRICT_THEME_DATA['Izhevsk'][themeKey][idx];
+            }
+        });
+    }
+
+    // Если в самом Ижевске есть данные, берем их. Если нет — возвращаем сумму его районов.
+    return directSum > 0 ? directSum : districtSum;
+}
+
+// Суммирование по региону
 function getTotalForTheme(themeKey, monthKey) {
     let sum = 0;
     let monthsToSum = [];
@@ -45,7 +76,8 @@ function getTotalForTheme(themeKey, monthKey) {
     const izhevskDistricts = ['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'];
 
     for (let d in DISTRICT_THEME_DATA) {
-        if (izhevskDistricts.includes(d)) continue; // Пропускаем пустые районы Ижевска
+        // Пропускаем Ижевск и его районы, чтобы посчитать их отдельно
+        if (d === 'Izhevsk' || izhevskDistricts.includes(d)) continue;
         
         if (DISTRICT_THEME_DATA[d][themeKey]) {
             monthsToSum.forEach(idx => {
@@ -55,6 +87,10 @@ function getTotalForTheme(themeKey, monthKey) {
             });
         }
     }
+    
+    // Добавляем данные по Ижевску
+    sum += getIzhevskTotal(themeKey, monthsToSum);
+    
     return sum;
 }
 
@@ -225,17 +261,15 @@ function drawLineChart() {
     // Если ничего не выбрано — рисуем заглушку с авто-переносом
     if (activeThemes.length === 0) {
         ctx.fillStyle = '#3a2c3f';
-        // Делаем шрифт чуть меньше на мобильных экранах
         const fontSize = width < 400 ? 14 : 16;
         ctx.font = `500 ${fontSize}px Montserrat, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         
         const msg = 'Выберите тематику в блоке «Показатели», чтобы увидеть динамику';
-        const maxLineWidth = width - 40; // Оставляем отступы по 20px с каждой стороны
+        const maxLineWidth = width - 40;
         const lineHeight = fontSize * 1.5;
         
-        // Разбиваем текст на строки
         const words = msg.split(' ');
         let lines = [];
         let currentLine = words[0];
@@ -252,7 +286,6 @@ function drawLineChart() {
         }
         lines.push(currentLine);
 
-        // Рисуем строки, центрируя их по вертикали
         let startY = height / 2 - ((lines.length - 1) * lineHeight) / 2;
         for (let i = 0; i < lines.length; i++) {
             ctx.fillText(lines[i], width / 2, startY + i * lineHeight);
@@ -365,9 +398,31 @@ function getDistrictValueForSelectedThemes(districtData, monthKey) {
 }
 
 function recolorDistricts(month) {
+    const izhevskDistrictsIds = ['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'];
+    
+    let monthsToSum = [];
+    if (month === 'first') monthsToSum = [0, 1, 2, 3, 4, 5];
+    else { const idx = monthKeys.indexOf(month); if (idx !== -1) monthsToSum = [idx]; }
+
+    let themesToSum = activeThemes.length > 0 ? activeThemes : [0, 1, 2, 3, 4];
+
     for (const [dId, data] of Object.entries(DISTRICT_THEME_DATA)) {
-        if (['Leninsky', 'Ustinovsky', 'Pervomaisky', 'Industrialny', 'Oktyabrskiy'].includes(dId)) continue;
-        const val = getDistrictValueForSelectedThemes(data, month);
+        // Пропускаем районы Ижевска, так как на главной карте их нет (есть только сам город)
+        if (izhevskDistrictsIds.includes(dId)) continue;
+        
+        let val = 0;
+
+        // Если это сам Ижевск, считаем его по нашей новой логике
+        if (dId === 'Izhevsk') {
+            themesToSum.forEach(themeIdx => {
+                const key = THEMES[themeIdx].key;
+                val += getIzhevskTotal(key, monthsToSum);
+            });
+        } else {
+            // Для остальных районов Удмуртии
+            val = getDistrictValueForSelectedThemes(data, month);
+        }
+
         const path = document.querySelector(`#udmurtiaMap g[id="${dId}"] path`);
         if (path) path.style.fill = getColorByLevel(getLevelByValue(val));
     }
